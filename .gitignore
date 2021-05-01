@@ -8,7 +8,7 @@ tiles
 
 # storage
 storage
-assets/scripts
+#assets/scripts
 
 # dependencies
 node_modules
@@ -31,7 +31,6 @@ _*
 .strong-pm
 nbproject
 npm-debug.log
-.vscode
 
 # files
 *.dat
