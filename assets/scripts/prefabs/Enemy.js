@@ -1,52 +1,30 @@
-class Enemy extends Phaser.GameObjects.Sprite {
-	constructor(scene, x, y, texture, frame) {
-		super(scene, x, y, texture, frame);
-		this.init();
-	}
-
+class Enemy extends MovableObject {
 	static generateAttributes() {
 		const x = config.width + 200;
 		const y = Phaser.Math.Between(100, config.height - 100);
-		const id = Phaser.Math.Between(1, 4);
 
-		return { x, y, id };
+		return { x, y, frame: `enemy${Phaser.Math.Between(1, 4)}` };
 	}
 
 	static generate(scene) {
 		const data = Enemy.generateAttributes();
-		return new Enemy(scene, data.x, data.y, 'enemy', `enemy${data.id}`);
+		return new Enemy({
+			scene,
+			x: data.x,
+			y: data.y,
+			texture: 'enemy',
+			frame: data.frame,
+			velocity: -500,
+		});
 	}
 
 	reset() {
 		const data = Enemy.generateAttributes();
-		this.x = data.x;
-		this.y = data.y;
-		this.setFrame(`enemy${data.id}`);
-		this.setAlive(true);
+		super.reset(data.x, data.y);
+		this.setFrame(data.frame);
 	}
 
-	setAlive(status) {
-		this.body.enable = status;
-		this.setVisible(status);
-		this.setActive(status);
-	}
-
-	update() {
-		if (this.active && this.x < -this.width) {
-			this.setAlive(false);
-		}
-	}
-
-	init() {
-		this.scene.add.existing(this);
-		this.scene.physics.add.existing(this);
-		this.body.enable = true;
-		this.velocity = -250;
-
-		this.scene.events.on('update', this.update, this);
-	}
-
-	move() {
-		this.body.setVelocityX(this.velocity);
+	isDead() {
+		return this.x < -this.width;
 	}
 }

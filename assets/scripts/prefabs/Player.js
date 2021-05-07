@@ -1,16 +1,20 @@
 class Player extends Enemy {
-	constructor(scene, x, y, texture, frame) {
-		super(scene, x, y, texture, frame);
+	constructor(scene) {
+		super({
+			scene,
+			x: 150,
+			y: config.height / 2,
+			texture: 'dragon',
+			frame: 'dragon1',
+			velocity: 500,
+		});
 	}
 
-	init() {
-		super.init();
-		this.velocity = 500;
-
+	init(data) {
+		super.init(data);
 		this.fires = new Fires(this.scene);
-
 		this.timer = this.scene.time.addEvent({
-			delay: 1000,
+			delay: 500,
 			loop: true,
 			callback: this.fire,
 			callbackScope: this,

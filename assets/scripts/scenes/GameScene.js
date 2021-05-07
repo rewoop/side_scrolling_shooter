@@ -15,7 +15,7 @@ class GameScene extends Phaser.Scene {
 	create() {
 		this.createBackground();
 		this.cursors = this.input.keyboard.createCursorKeys();
-		this.player = new Player(this, 150, config.height / 2, 'dragon', 'dragon1');
+		this.player = new Player(this);
 		this.enemies = new Enemies(this);
 		this.enemies.createEnemy();
 	}
