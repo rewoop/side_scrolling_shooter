@@ -17,7 +17,7 @@ class Enemy extends MovableObject {
 			frame: data.frame,
 			velocity: -250,
 			bullet: {
-				delay: 1000,
+				delay: 1500,
 				texture: 'bullet',
 				velocity: -500,
 			},
